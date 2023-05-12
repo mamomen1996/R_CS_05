@@ -389,23 +389,3 @@ models_comp <- rbind(models_comp, "RandomForest" = c(mean(abs_err_rf),
                                                  range(abs_err_rf))) 
 
 View(model_comp)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
