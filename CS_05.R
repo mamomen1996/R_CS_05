@@ -16,7 +16,7 @@ library('randomForest')
 
 
 ### Read Data from File ----
-load('dataset_v1.RData')  # pre-processed Data
+load('case4_dataset_v1.RData')  # pre-processed Data
 dim(data2)  # 263 records, 19 variables
 
 
@@ -124,7 +124,7 @@ plot(lassoreg_1, xvar = 'lambda')  # plot Regression Coefficients vs. Log lambda
 lassoreg_1$lambda[90]  # lambda value with index 90
 coef(lassoreg_1)[,90]  # retrieve one of Regression Coefficients (Regression Coefficients for lambda 0.1629751
 
-k-fold cross validation approach to choose the best model (select the best lambda)
+#k-fold cross validation approach to choose the best model (select the best lambda)
 set.seed(1234)
 lasso_cv <- cv.glmnet(x, y, alpha = 1, nfolds = 10, lambda = lambda_ridge_grid)
 
@@ -289,7 +289,7 @@ models_comp <- rbind(models_comp, "LassoReg" = c(mean(abs_err_lassoreg),
                                                  IQR(abs_err_lassoreg),
                                                  range(abs_err_lassoreg))) 
 
-View(model_comp)
+View(models_comp)
 
 # Test the Model 7 performance
 #Prediction
@@ -322,7 +322,7 @@ models_comp <- rbind(models_comp, "Tree" = c(mean(abs_err_tree),
                                                  IQR(abs_err_tree),
                                                  range(abs_err_tree))) 
 
-View(model_comp)
+View(models_comp)
 
 # Test the Model 8 performance
 #Prediction
@@ -355,7 +355,7 @@ models_comp <- rbind(models_comp, "Bagging" = c(mean(abs_err_bagging),
                                                  IQR(abs_err_bagging),
                                                  range(abs_err_bagging))) 
 
-View(model_comp)
+View(models_comp)
 
 # Test the Model 9 performance
 #Prediction
@@ -370,7 +370,7 @@ plot(test$Salary, pred_rf, xlab = "Actual", ylab = "Prediction")
 abline(a = 0, b = 1, col = "red", lwd = 2)  # compare with 45' line
 
 #Absolute Error mean, median, sd, max, min
-abs_err_rf <- abs(abs_err_rf - test$Salary) #absolute value (AEV)
+abs_err_rf <- abs(pred_rf - test$Salary) #absolute value (AEV)
 
 hist(abs_err_rf, breaks = 25)  # residuals distribution
 mean(abs_err_rf)
@@ -388,4 +388,4 @@ models_comp <- rbind(models_comp, "RandomForest" = c(mean(abs_err_rf),
                                                  IQR(abs_err_rf),
                                                  range(abs_err_rf))) 
 
-View(model_comp)
+View(models_comp)
